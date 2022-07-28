@@ -1,4 +1,4 @@
-package com.example.pokeledger
+package io.jaysonnotfound.pokefound
 
 import io.flutter.embedding.android.FlutterActivity
 
