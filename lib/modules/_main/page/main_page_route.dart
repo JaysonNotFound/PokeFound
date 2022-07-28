@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/blocs/main_blocs/main_blocs.dart';
 import '../../../widget/routes/empty_page_route_arguments.dart';
 import '../../../widget/routes/page_route.dart';
 import 'main_page.dart';
@@ -10,7 +12,10 @@ class MainPageRoute extends IPageRoute<EmptyPageRouteArguments> {
 
   @override
   Widget getWidget() {
-    return MainPage(); // TODO: Replace MultiProvider once already have main blocs.
+    return MultiProvider(
+      providers: MainBlocs.get(),
+      child: MainPage(),
+    );
   }
 
   @override

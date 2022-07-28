@@ -1,5 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/single_child_widget.dart';
 
+import '../../../modules/pokemon/domain/bloc/pokemon_bloc.dart';
+
 class MainBlocs {
-  static List<SingleChildWidget> get() => [];
+  static List<SingleChildWidget> get() => [
+        BlocProvider(create: (context) => GetIt.I<PokemonBloc>()),
+      ];
 }
