@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pokeledger">
+    package="io.jaysonnotfound.pokefound">
    <application
-        android:label="pokeledger"
+        android:label="PokeFound"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
