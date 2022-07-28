@@ -1,0 +1,19 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "bin/cache/**"
+    - "**/*.config.dart"
+    - "*.config.dart"
+    - "**.gr.dart"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+
+  errors:
+    todo: ignore
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    prefer_const_constructors: false

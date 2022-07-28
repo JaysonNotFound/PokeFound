@@ -1,0 +1,44 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+enum PokemonType {
+  @JsonValue('normal')
+  normal,
+  @JsonValue('fighting')
+  fighting,
+  @JsonValue('flying')
+  flying,
+  @JsonValue('poison')
+  poison,
+  @JsonValue('ground')
+  ground,
+  @JsonValue('rock')
+  rock,
+  @JsonValue('bug')
+  bug,
+  @JsonValue('ghost')
+  ghost,
+  @JsonValue('steel')
+  steel,
+  @JsonValue('fire')
+  fire,
+  @JsonValue('water')
+  water,
+  @JsonValue('grass')
+  grass,
+  @JsonValue('electric')
+  electric,
+  @JsonValue('psychic')
+  psychic,
+  @JsonValue('ice')
+  ice,
+  @JsonValue('dragon')
+  dragon,
+  @JsonValue('dark')
+  dark,
+  @JsonValue('fairy')
+  fairy,
+  @JsonValue('shadow')
+  shadow,
+  @JsonValue('unknown')
+  unknown,
+}
