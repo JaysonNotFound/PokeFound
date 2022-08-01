@@ -7,7 +7,7 @@ import 'core/config/dependency_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configure();
+  await initialize();
   runZonedGuarded(
     () {
       runApp(const App());

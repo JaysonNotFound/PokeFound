@@ -1,22 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+import '../../../core/blocs/main_blocs/main_blocs.dart';
+
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          alignment: Alignment.center,
-          child: const Text('HOME!!!'),
-        ),
-      ),
+    return MultiProvider(
+      providers: MainBlocs.get(),
+      child: AutoRouter(),
     );
   }
 }
