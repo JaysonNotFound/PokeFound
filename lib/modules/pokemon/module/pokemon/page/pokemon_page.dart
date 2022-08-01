@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokefound/widget/navigation_drawer/navigation_drawer_widget.dart';
 
-import '../domain/bloc/pokemon_bloc.dart';
-import '../widget/pokemon_card/pokemon_card_widget.dart';
+import '../../../domain/bloc/pokemon_bloc.dart';
+import '../../../widget/pokemon_card/pokemon_card_widget.dart';
 
 class PokemonPage extends StatefulWidget {
   const PokemonPage({Key? key}) : super(key: key);
@@ -38,14 +39,22 @@ class _PokemonPageState extends State<PokemonPage> {
     PokemonState state,
   ) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
+      appBar: AppBar(
+        backgroundColor: Colors.red[400],
+        title: Text('Pokemon'),
+      ),
       body: SafeArea(
           child: state.maybeWhen(
-        success: (pokemons) => ListView(
-          children: pokemons
-              .map(
-                (pokemon) => PokemonCardWidget(id: pokemon.id),
-              )
-              .toList(),
+        success: (pokemons) => Padding(
+          padding: const EdgeInsets.all(16),
+          child: ListView(
+            children: pokemons
+                .map(
+                  (pokemon) => PokemonCardWidget(pokemonEntity: pokemon),
+                )
+                .toList(),
+          ),
         ),
         failed: () => Text('Retry...'),
         loading: () => Text('Loading...'),

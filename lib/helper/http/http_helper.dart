@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../core/dependency/dio/dio_dependency.dart';
 import '../../core/interceptor/json_http_request_interceptor.dart';
-import 'content_type.dart';
+import '../../core/enum/http/content_type.dart';
 
 @injectable
 class HttpHelper {

@@ -1,8 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class LocalStorageException extends Equatable implements Exception {
-  const LocalStorageException();
+part 'local_storage_exception.freezed.dart';
 
-  @override
-  List<Object> get props => [];
+@freezed
+class LocalStorageException with _$LocalStorageException implements Exception {
+  factory LocalStorageException() = _LocalStorageException;
 }

@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 
-import '../../core/exception/maintenance_exception.dart';
-import '../../core/exception/remote_exception.dart';
-import '../../core/exception/timeout_exception.dart';
+import '../../core/exception/remote/maintenance_exception.dart';
+import '../../core/exception/remote/remote_exception.dart';
+import '../../core/exception/remote/timeout_exception.dart';
 import '../../core/failure/remote/maintenance/maintenance_failure.dart';
 import '../../core/failure/remote/remote_failure.dart';
 import '../../core/failure/remote/timeout/timeout_failure.dart';

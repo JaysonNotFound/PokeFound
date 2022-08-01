@@ -3,53 +3,53 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../core/errors/data/model/error_response_model.dart';
-import '../../core/exception/maintenance_exception.dart';
-import '../../core/exception/network_exception.dart';
-import '../../core/exception/remote_exception.dart';
-import '../../core/exception/timeout_exception.dart';
-import '../../core/exception/unknown_exception.dart';
+import '../../core/exception/remote/maintenance_exception.dart';
+import '../../core/exception/remote/network_exception.dart';
+import '../../core/exception/remote/remote_exception.dart';
+import '../../core/exception/remote/timeout_exception.dart';
+import '../../core/exception/remote/unknown_exception.dart';
+import 'data/model/error_response_model.dart';
 
 @injectable
 class RemoteExceptionHelper {
   Response<dynamic> assureRemoteException(dynamic error) {
     if (error is DioError && (error.response?.statusCode == 503)) {
-      throw const MaintenanceException();
+      throw MaintenanceException();
     }
 
     if (error is DioError && error.type == DioErrorType.connectTimeout) {
-      throw const TimeoutException();
+      throw TimeoutException();
     }
 
     if (error.type == DioErrorType.other &&
         error.error != null &&
         error.error is SocketException) {
-      throw const NetworkException();
+      throw NetworkException();
     }
 
     if (error.response == null) {
-      throw const UnknownException();
+      throw UnknownException();
     }
 
     Response response = error.response;
 
     if (response.data == null || response.data == '') {
       throw RemoteException(
-        response.statusCode,
-        null,
+        statusCode: response.statusCode,
+        errorResponseModel: null,
       );
     }
 
     if (response.data is! Map<String, dynamic>) {
       throw RemoteException(
-        response.statusCode,
-        null,
+        statusCode: response.statusCode,
+        errorResponseModel: null,
       );
     }
 
     throw RemoteException(
-      response.statusCode,
-      ErrorResponseModel.fromJson(response.data),
+      statusCode: response.statusCode,
+      errorResponseModel: ErrorResponseModel.fromJson(response.data),
     );
   }
 }
