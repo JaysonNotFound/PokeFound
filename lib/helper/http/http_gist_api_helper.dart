@@ -5,14 +5,14 @@ import '../../core/enum/http/content_type.dart';
 import 'http_client_helper.dart';
 
 @injectable
-class HttpPokeApiHelper {
+class HttpGistApiHelper {
   final HttpClientHelper _httpHelper;
 
-  HttpPokeApiHelper({
+  HttpGistApiHelper({
     required HttpClientHelper httpHelper,
   }) : _httpHelper = httpHelper;
 
-  static const String pokeApiUrl = 'https://pokeapi.co/api/v2/';
+  static const String gistApiUrl = 'https://gist.github.com/JaysonNotFound/';
 
   Future<Response<dynamic>> get(
     String path, {
@@ -22,7 +22,7 @@ class HttpPokeApiHelper {
     bool shouldRetry = true,
   }) async {
     final httpClient = _httpHelper.getClient(
-      baseUrl: pokeApiUrl,
+      baseUrl: gistApiUrl,
       contentType: contentType,
       responseType: responseType,
       shouldRetry: shouldRetry,

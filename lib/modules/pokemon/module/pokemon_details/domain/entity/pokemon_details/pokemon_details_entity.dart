@@ -11,7 +11,6 @@ class PokemonDetailsEntity with _$PokemonDetailsEntity {
   factory PokemonDetailsEntity({
     required int id,
     required String name,
-    required String officialArtWork,
     required List<PokemonDetailsAbilityEntity> abilities,
     required List<PokemonDetailsStatEntity> stats,
     required List<PokemonDetailsTypeEntity> types,

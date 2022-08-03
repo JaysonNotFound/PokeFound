@@ -2,15 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/dependency/dio/dio_dependency.dart';
-import '../../core/interceptor/json_http_request_interceptor.dart';
 import '../../core/enum/http/content_type.dart';
+import '../../core/interceptor/json_http_request_interceptor.dart';
 
 @injectable
-class HttpHelper {
+class HttpClientHelper {
   final DioDependency _dioDependency;
   final JsonHttpRequestInterceptor _jsonHttpRequestInterceptor;
 
-  HttpHelper({
+  HttpClientHelper({
     required DioDependency dioDependency,
     required JsonHttpRequestInterceptor jsonHttpRequestInterceptor,
   })  : _dioDependency = dioDependency,

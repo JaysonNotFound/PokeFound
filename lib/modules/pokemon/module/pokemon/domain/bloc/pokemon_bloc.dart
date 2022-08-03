@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/repository/pokemon_repository.dart';
-import '../entity/pokemon_entity.dart';
+import '../../../../data/repository/pokemon_repository.dart';
+import '../entity/pokemon_list/pokemon_list_entity.dart';
 
 part 'pokemon_bloc.freezed.dart';
 part 'pokemon_event.dart';
@@ -30,16 +30,11 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     emit(const PokemonState.initial());
     emit(const PokemonState.loading());
 
-    final result = await _pokemonRepository.getPokemon();
-    if (result.isLeft()) {
-      return emit(const PokemonState.failed());
-    }
+    final result = await _pokemonRepository.getPokemons();
 
     final pokemons = result.getOrElse(() => null);
-    if (pokemons != null) {
-      return emit(PokemonState.success(pokemons: pokemons));
-    }
+    if (pokemons == null) return emit(const PokemonState.failed());
 
-    return emit(PokemonState.success(pokemons: []));
+    return emit(PokemonState.success(pokemons: pokemons));
   }
 }

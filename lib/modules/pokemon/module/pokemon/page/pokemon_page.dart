@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokefound/widget/navigation_drawer/navigation_drawer_widget.dart';
 
-import '../../../domain/bloc/pokemon_bloc.dart';
+import '../../../../../widget/navigation_drawer/navigation_drawer_widget.dart';
 import '../../../widget/pokemon_card/pokemon_card_widget.dart';
+import '../domain/bloc/pokemon_bloc.dart';
 
 class PokemonPage extends StatefulWidget {
   const PokemonPage({Key? key}) : super(key: key);
@@ -46,10 +46,10 @@ class _PokemonPageState extends State<PokemonPage> {
       ),
       body: SafeArea(
           child: state.maybeWhen(
-        success: (pokemons) => Padding(
+        success: (entity) => Padding(
           padding: const EdgeInsets.all(16),
           child: ListView(
-            children: pokemons
+            children: entity.pokemons
                 .map(
                   (pokemon) => PokemonCardWidget(pokemonEntity: pokemon),
                 )

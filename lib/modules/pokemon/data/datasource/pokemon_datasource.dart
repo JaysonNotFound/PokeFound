@@ -1,28 +1,32 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../helper/http/http_gist_api_helper.dart';
 import '../../../../helper/http/http_poke_api_helper.dart';
 import '../../../../helper/remote_exception/remote_exception_helper.dart';
-import '../../domain/params/pokemon_api_params.dart';
-import '../model/pokemon_details_model.dart';
-import '../model/pokemons_model.dart';
+import '../model/pokemon_details/pokemon_details_model.dart';
+import '../model/pokemon_list/pokemon_list_model.dart';
 
 @injectable
 class PokemonDatasource {
+  final HttpGistApiHelper _gistApiHelper;
   final HttpPokeApiHelper _pokeApiHelper;
+
   final RemoteExceptionHelper _remoteExceptionHelper;
 
   PokemonDatasource({
+    required HttpGistApiHelper gistApiHelper,
     required HttpPokeApiHelper pokeApiHelper,
     required RemoteExceptionHelper remoteExceptionHelper,
-  })  : _pokeApiHelper = pokeApiHelper,
+  })  : _gistApiHelper = gistApiHelper,
+        _pokeApiHelper = pokeApiHelper,
         _remoteExceptionHelper = remoteExceptionHelper;
 
-  Future<PokemonsModel> getPokemon(PokemonApiParams params) async {
-    final response = await _pokeApiHelper
-        .get('pokemon', queryParameters: params.toJson())
+  Future<PokemonListModel> getPokemons() async {
+    final response = await _gistApiHelper
+        .get('7482eaa4ba17e4d978a151377cfd9aec/raw/pokemons.json')
         .catchError(_remoteExceptionHelper.assureRemoteException);
 
-    return PokemonsModel.fromJson(response.data);
+    return PokemonListModel.fromJson(response.data);
   }
 
   Future<PokemonDetailsModel> getPokemonById(int id) async {
