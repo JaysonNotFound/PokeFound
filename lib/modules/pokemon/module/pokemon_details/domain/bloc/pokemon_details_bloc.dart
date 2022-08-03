@@ -4,22 +4,23 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../data/repository/pokemon_repository.dart';
-import '../../../domain/entity/pokemon_details_entity.dart';
+import '../../../../data/repository/pokemon_repository.dart';
+import '../entity/pokemon_details/pokemon_details_entity.dart';
 
-part 'pokemon_card_bloc.freezed.dart';
-part 'pokemon_card_event.dart';
-part 'pokemon_card_state.dart';
+part 'pokemon_details_bloc.freezed.dart';
+part 'pokemon_details_event.dart';
+part 'pokemon_details_state.dart';
 
 @injectable
-class PokemonCardBloc extends Bloc<PokemonCardEvent, PokemonCardState> {
+class PokemonDetailsBloc
+    extends Bloc<PokemonDetailsEvent, PokemonDetailsState> {
   final PokemonRepository _pokemonRepository;
 
-  PokemonCardBloc({
+  PokemonDetailsBloc({
     required PokemonRepository pokemonRepository,
   })  : _pokemonRepository = pokemonRepository,
         super(_Initial()) {
-    on<PokemonCardEvent>(
+    on<PokemonDetailsEvent>(
       (event, emit) => event.when(
         getPokemonById: (id) => _handleGetPokemonById(emit, id),
       ),
@@ -27,22 +28,18 @@ class PokemonCardBloc extends Bloc<PokemonCardEvent, PokemonCardState> {
   }
 
   FutureOr<void> _handleGetPokemonById(
-    Emitter<PokemonCardState> emit,
+    Emitter<PokemonDetailsState> emit,
     int id,
   ) async {
-    emit(const PokemonCardState.initial());
-    emit(const PokemonCardState.loading());
+    emit(const PokemonDetailsState.initial());
+    emit(const PokemonDetailsState.loading());
 
     final result = await _pokemonRepository.getPokemonById(id);
-    if (result.isLeft()) {
-      return emit(const PokemonCardState.failed());
-    }
-
     final entity = result.getOrElse(() => null);
     if (entity == null) {
-      return emit(const PokemonCardState.failed());
+      return emit(const PokemonDetailsState.failed());
     }
 
-    return emit(PokemonCardState.success(entity: entity));
+    return emit(PokemonDetailsState.success(entity: entity));
   }
 }

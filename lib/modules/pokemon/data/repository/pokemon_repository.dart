@@ -3,12 +3,13 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/failure/remote/remote_failure.dart';
 import '../../../../helper/remote_failure/remote_failure_helper.dart';
-import '../../domain/entity/pokemon_details_ability_entity.dart';
-import '../../domain/entity/pokemon_details_entity.dart';
-import '../../domain/entity/pokemon_details_stat_entity.dart';
-import '../../domain/entity/pokemon_details_type_entity.dart';
-import '../../domain/entity/pokemon_entity.dart';
-import '../../domain/params/pokemon_api_params.dart';
+import '../../module/pokemon/domain/entity/pokemon_list/pokemon_list_entity.dart';
+import '../../module/pokemon/domain/entity/pokemon_list/pokemon_list_item_entity.dart';
+import '../../module/pokemon/domain/entity/pokemon_list/pokemon_list_item_type_entity.dart';
+import '../../module/pokemon_details/domain/entity/pokemon_details/pokemon_details_ability_entity.dart';
+import '../../module/pokemon_details/domain/entity/pokemon_details/pokemon_details_entity.dart';
+import '../../module/pokemon_details/domain/entity/pokemon_details/pokemon_details_stat_entity.dart';
+import '../../module/pokemon_details/domain/entity/pokemon_details/pokemon_details_type_entity.dart';
 import '../datasource/pokemon_datasource.dart';
 
 @injectable
@@ -22,23 +23,32 @@ class PokemonRepository {
   })  : _datasource = datasource,
         _remoteFailureHelper = remoteFailureHelper;
 
-  Future<Either<RemoteFailure?, List<PokemonEntity>?>> getPokemon() async {
+  Future<Either<RemoteFailure?, PokemonListEntity?>> getPokemons() async {
     try {
-      final params = PokemonApiParams(limit: 898);
-      final model = await _datasource.getPokemon(params);
-      const officalArtworkUri =
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
-
-      final results = model.results
+      final model = await _datasource.getPokemons();
+      final pokemons = model.results
           .map(
-            (poke) => PokemonEntity(
-              id: poke.id,
-              name: poke.name,
-              officialArtWork: '$officalArtworkUri/${poke.id}.png',
+            (pokemon) => PokemonListItemEntity(
+              defaultId: pokemon.defaultId,
+              id: pokemon.id,
+              name: pokemon.name,
+              types: pokemon.types
+                  .map(
+                    (type) => PokemonListItemTypeEntity(
+                      id: type.id,
+                      type: type.type,
+                      slot: type.slot,
+                    ),
+                  )
+                  .toList(),
+              image: pokemon.image,
             ),
           )
           .toList();
-      return Right(results);
+      final pokemonListEntity = PokemonListEntity(
+        pokemons: pokemons,
+      );
+      return Right(pokemonListEntity);
     } on Exception catch (exception) {
       return Left(_remoteFailureHelper.call(exception));
     }
@@ -49,9 +59,6 @@ class PokemonRepository {
   ) async {
     try {
       final model = await _datasource.getPokemonById(id);
-      final _officialArtWork =
-          model.sprites['other']['official-artwork']['front_default'];
-
       final _abilities = model.abilities
           .map((ability) => PokemonDetailsAbilityEntity(
                 id: _getIdFromUrl(ability.ability['url']),
@@ -85,7 +92,6 @@ class PokemonRepository {
         height: model.height,
         order: model.order,
         isDefault: model.isDefault,
-        officialArtWork: _officialArtWork,
         abilities: _abilities,
         stats: _stats,
         types: _types,

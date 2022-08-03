@@ -5,7 +5,7 @@ class PokemonState with _$PokemonState {
   const factory PokemonState.initial() = _Initial;
   const factory PokemonState.loading() = _Loading;
   const factory PokemonState.success({
-    required List<PokemonEntity> pokemons,
+    required PokemonListEntity pokemons,
   }) = _Success;
   const factory PokemonState.failed() = _Failed;
 }

@@ -2,14 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/enum/http/content_type.dart';
-import 'http_helper.dart';
+import 'http_client_helper.dart';
 
 @injectable
 class HttpMainApiHelper {
-  final HttpHelper _httpHelper;
+  final HttpClientHelper _httpHelper;
 
   HttpMainApiHelper({
-    required HttpHelper httpHelper,
+    required HttpClientHelper httpHelper,
   }) : _httpHelper = httpHelper;
 
   static const String mainApiUrl = 'https://localhost/api:3000';

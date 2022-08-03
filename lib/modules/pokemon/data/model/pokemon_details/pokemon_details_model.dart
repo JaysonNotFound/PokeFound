@@ -14,7 +14,6 @@ class PokemonDetailsModel with _$PokemonDetailsModel {
     required List<PokemonDetailsAbility> abilities,
     required List<PokemonDetailsStatModel> stats,
     required List<PokemonDetailsTypeModel> types,
-    required Map<String, dynamic> sprites,
     required String name,
     required int weight,
     required int height,
