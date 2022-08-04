@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/failure/remote/remote_failure.dart';
+import '../../../../core/errors/failure/remote/remote_failure.dart';
 import '../../../../helper/remote_failure/remote_failure_helper.dart';
 import '../../module/pokemon/domain/entity/pokemon_list/pokemon_list_entity.dart';
 import '../../module/pokemon/domain/entity/pokemon_list/pokemon_list_item_entity.dart';

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../widget/navigation_drawer/navigation_drawer_widget.dart';
 import '../../../widget/pokemon_card/pokemon_card_widget.dart';
 import '../domain/bloc/pokemon_bloc.dart';
+import '../domain/entity/pokemon_list/pokemon_list_entity.dart';
 
 class PokemonPage extends StatefulWidget {
   const PokemonPage({Key? key}) : super(key: key);
@@ -44,22 +45,31 @@ class _PokemonPageState extends State<PokemonPage> {
         backgroundColor: Colors.red[400],
         title: Text('Pokemon'),
       ),
-      body: SafeArea(
-          child: state.maybeWhen(
-        success: (entity) => Padding(
-          padding: const EdgeInsets.all(16),
-          child: ListView(
-            children: entity.pokemons
-                .map(
-                  (pokemon) => PokemonCardWidget(pokemonEntity: pokemon),
-                )
-                .toList(),
-          ),
-        ),
+      body: state.maybeWhen(
+        success: _buildPokemonListViewWidget,
         failed: () => Text('Retry...'),
         loading: () => Text('Loading...'),
         orElse: () => Text('Loading...'),
-      )),
+      ),
+    );
+  }
+
+  Widget _buildPokemonListViewWidget(PokemonListEntity entity) {
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: ListView.builder(
+        padding: EdgeInsets.all(16),
+        itemCount: entity.pokemons.length,
+        itemBuilder: (context, index) => PokemonCardWidget(
+          pokemonEntity: entity.pokemons[index],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onRefresh() async {
+    BlocProvider.of<PokemonBloc>(context).add(
+      PokemonEvent.getPokemons(),
     );
   }
 }
