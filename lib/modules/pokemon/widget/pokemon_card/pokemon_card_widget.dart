@@ -26,8 +26,8 @@ class _PokemonCardWidgetState extends State<PokemonCardWidget> {
       child: GestureDetector(
         onTap: _handleOnPressed,
         child: Container(
-          height: 100,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
             color: Colors.blue[50],
             borderRadius: BorderRadius.all(
@@ -38,9 +38,9 @@ class _PokemonCardWidgetState extends State<PokemonCardWidget> {
             children: [
               Expanded(
                 child: Text(
-                  widget.pokemonEntity.name,
+                  widget.pokemonEntity.name.toUpperCase(),
                   style: TextStyle(
-                    color: Colors.black38,
+                    color: Colors.black54,
                   ),
                 ),
               ),
@@ -55,8 +55,8 @@ class _PokemonCardWidgetState extends State<PokemonCardWidget> {
   Widget _buildPokemonCardImageWidget() {
     return CachedNetworkImage(
       imageUrl: widget.pokemonEntity.image,
-      height: 84,
-      width: 84,
+      width: 64,
+      height: 64,
       placeholder: _buildPokemonCardImagePlaceholderWidget,
     );
   }

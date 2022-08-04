@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class JsonHttpRequestInterceptor extends Interceptor {
+class HttpJsonRequestInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (options.data is! String) {

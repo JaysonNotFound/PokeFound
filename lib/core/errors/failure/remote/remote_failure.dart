@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pokefound/core/failure/failure.dart';
+
+import '../failure.dart';
 
 part 'remote_failure.freezed.dart';
 

@@ -3,16 +3,16 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../core/exception/remote/maintenance_exception.dart';
-import '../../core/exception/remote/network_exception.dart';
-import '../../core/exception/remote/remote_exception.dart';
-import '../../core/exception/remote/timeout_exception.dart';
-import '../../core/exception/remote/unknown_exception.dart';
-import 'data/model/error_response_model.dart';
+import '../../core/errors/exception/remote/maintenance_exception.dart';
+import '../../core/errors/exception/remote/network_exception.dart';
+import '../../core/errors/exception/remote/remote_exception.dart';
+import '../../core/errors/exception/remote/timeout_exception.dart';
+import '../../core/errors/exception/remote/unknown_exception.dart';
+import '../../core/errors/model/error_response_model.dart';
 
 @injectable
 class RemoteExceptionHelper {
-  Response<dynamic> assureRemoteException(dynamic error) {
+  Response<dynamic> call(dynamic error) {
     if (error is DioError && (error.response?.statusCode == 503)) {
       throw MaintenanceException();
     }

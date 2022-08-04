@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../core/failure/failure.dart';
+import '../../../../core/errors/failure/failure.dart';
 
 part 'pokemon_failure.freezed.dart';
 
