@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../widget/navigation_drawer/navigation_drawer_widget.dart';
+import '../../../../../widget/custom_app_bar/custom_app_bar.dart';
 import '../../../widget/pokemon_card/pokemon_card_widget.dart';
 import '../domain/bloc/pokemon_bloc.dart';
 import '../domain/entity/pokemon_list/pokemon_list_entity.dart';
@@ -40,10 +40,8 @@ class _PokemonPageState extends State<PokemonPage> {
     PokemonState state,
   ) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Colors.red[400],
-        title: Text('Pokemon'),
+      appBar: CustomAppBar(
+        title: "Pokédex",
       ),
       body: state.maybeWhen(
         success: _buildPokemonListViewWidget,
