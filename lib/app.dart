@@ -16,6 +16,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -55,7 +57,6 @@ class _AppState extends State<App> {
   }
 
   Widget _buildAppWidget(BuildContext context) {
-    final _appRouter = AppRouter();
     return MultiProvider(
       providers: [
         BlocProvider<SplashBloc>(
