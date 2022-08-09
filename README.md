@@ -1,3 +1,3 @@
 # PokéFound
 
-An app that integrates PokeAPI.
+An app that integrates PokeAPi.
